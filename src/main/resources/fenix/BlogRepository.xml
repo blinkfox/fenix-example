@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这是用来操作博客信息的 Fenix XML 文件，请填写 namespace 命名空间. -->
+<fenixs namespace="com.blinkfox.fenix.example.repository.BlogRepository">
+
+    <!-- 这是一条完整的 Fenix 查询语句块，必须填写 fenix 标签的 id 属性. -->
+    <fenix id="queryMyBlogs">
+        SELECT
+            b
+        FROM
+            Blog AS b
+        WHERE
+        <in field="b.id" value="ids" match="ids != empty"/>
+        <andLike field="b.author" value="blog.author" match="blog.author != empty"/>
+        <andLike field="b.title" value="blog.title" match="blog.title != empty"/>
+        <andBetween field="b.createTime" start="blog.createTime" end="blog.updateTime" match="(?blog.createTime != empty) || (?blog.updateTime != empty)"/>
+    </fenix>
+
+    <!-- 这是自定义的查询博客总记录数的方法，这里使用另一种插值语法和模板语法来演示和查询. -->
+    <fenix id="queryMyBlogsCount">
+        SELECT
+            count(*)
+        FROM
+            Blog AS b
+        WHERE
+            b.id in #{ids}
+        AND b.author LIKE '%${blog.author}%'
+    </fenix>
+
+    <!-- 根据 MVEL 模版语法和表达式来查询 SQL. -->
+    <fenix id="queryBlogsByTemplate">
+        SELECT
+            b
+        FROM
+            Blog AS b
+        WHERE
+        b.id in #{ids}
+        <andLike field="b.author" value="blog.author"/>
+        @if{?blog.title != empty}
+            AND b.title LIKE '%@{blog.title}%'
+        @end{}
+    </fenix>
+
+</fenixs>

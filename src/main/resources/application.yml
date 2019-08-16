@@ -1,0 +1,22 @@
+# 内存数据库 和 JPA 的配置.
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:dbtest
+    username: test
+    password: 123456
+    driver-class-name: org.hsqldb.jdbcDriver
+    platform: hsqldb
+    schema: classpath:db/schema.sql
+    data: classpath:db/data.sql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+# Fenix 的几个配置项、默认值及详细说明.
+fenix:
+  debug: false
+  print-banner: true
+  print-sql: true
+  xml-locations:
+  handler-locations:
