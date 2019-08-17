@@ -1,4 +1,4 @@
-# ÄÚ´æÊı¾İ¿â ºÍ JPA µÄÅäÖÃ.
+# å†…å­˜æ•°æ®åº“å’Œ JPA çš„é…ç½®.
 spring:
   datasource:
     url: jdbc:hsqldb:mem:dbtest
@@ -13,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: update
 
-# Fenix µÄ¼¸¸öÅäÖÃÏî¡¢Ä¬ÈÏÖµ¼°ÏêÏ¸ËµÃ÷.
+# Fenix çš„å‡ ä¸ªé…ç½®é¡¹ã€é»˜è®¤å€¼åŠè¯¦ç»†è¯´æ˜.
 fenix:
   debug: false
   print-banner: true
