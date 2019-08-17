@@ -19,4 +19,4 @@ fenix:
   print-banner: true
   print-sql: true
   xml-locations:
-  handler-locations:
+  handler-locations: com.blinkfox.fenix.example.handler
