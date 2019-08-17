@@ -2,6 +2,9 @@ package com.blinkfox.fenix.example.repository;
 
 import com.blinkfox.fenix.example.entity.Blog;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +61,24 @@ public class BlogRepositoryTest {
         // 查询并断言查询结果的正确性.
         List<Blog> blogs = blogRepository.queryBlogsByTemplate(ids, blog);
         Assert.assertEquals(4, blogs.size());
+    }
+
+    /**
+     * 测试使用 {@link QueryFenix} 注解和 Java API 来拼接 SQL 的方式来查询博客信息.
+     */
+    @Test
+    public void queryBlogsWithJava() {
+        // 构造查询的相关参数.
+        String[] ids = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
+        Blog blog = new Blog().setAuthor("ZhangSan");
+        Date startTime = Date.from(LocalDateTime.of(2019, Month.APRIL, 8, 0, 0, 0)
+                .atZone(ZoneId.systemDefault()).toInstant());
+        Date endTime = Date.from(LocalDateTime.of(2019, Month.OCTOBER, 8, 0, 0, 0)
+                .atZone(ZoneId.systemDefault()).toInstant());
+
+        // 查询并断言查询结果的正确性.
+        List<Blog> blogs = blogRepository.queryBlogsWithJava(blog, startTime, endTime, ids);
+        Assert.assertEquals(3, blogs.size());
     }
 
 }

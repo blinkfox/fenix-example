@@ -1,8 +1,10 @@
 package com.blinkfox.fenix.example.repository;
 
 import com.blinkfox.fenix.example.entity.Blog;
+import com.blinkfox.fenix.example.provider.BlogSqlProvider;
 import com.blinkfox.fenix.jpa.QueryFenix;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -37,5 +39,18 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
      */
     @QueryFenix
     List<Blog> queryBlogsByTemplate(@Param("ids") List<String> ids, @Param("blog") Blog blog);
+
+    /**
+     * 使用 {@link QueryFenix} 注解和 Java API 来拼接 SQL 的方式来查询博客信息.
+     *
+     * @param blog 博客信息实体
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param blogIds 博客 ID 集合
+     * @return 用户信息集合
+     */
+    @QueryFenix(provider = BlogSqlProvider.class)
+    List<Blog> queryBlogsWithJava(@Param("blog") Blog blog, @Param("startTime") Date startTime,
+            @Param("endTime") Date endTime, @Param("blogIds") String[] blogIds);
 
 }
