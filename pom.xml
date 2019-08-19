@@ -11,7 +11,7 @@
 
     <groupId>com.blinkfox</groupId>
     <artifactId>fenix-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>fenix-example</name>
     <description>这是 Spring Data JPA 的 Fenix 扩展示例项目</description>
 
