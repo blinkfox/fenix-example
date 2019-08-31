@@ -13,10 +13,16 @@ spring:
     hibernate:
       ddl-auto: update
 
+logging:
+  file: logs/fenix-example.log
+  level:
+    root: info
+
 # Fenix 的几个配置项、默认值及详细说明.
 fenix:
-  debug: false
   print-banner: true
   print-sql: true
   xml-locations:
+    - fenix
+    - myfenix
   handler-locations: com.blinkfox.fenix.example.handler
