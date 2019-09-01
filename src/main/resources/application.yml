@@ -18,11 +18,11 @@ logging:
   level:
     root: info
 
-# Fenix 的几个配置项、默认值及详细说明.
-fenix:
-  print-banner: true
-  print-sql:
-  xml-locations:
-    - fenix
-    - myfenix
-  handler-locations: com.blinkfox.fenix.example.handler
+# Fenix 的几个配置项、默认值及详细说明，通常情况下都不需要配置，你可以视具体情况配置.
+#fenix:
+#  print-banner: true
+#  print-sql:
+#  xml-locations:
+#    - fenix
+#    - myfenix
+#  handler-locations: com.blinkfox.fenix.example.handler
