@@ -40,4 +40,20 @@
         @end{}
     </fenix>
 
+    <!-- 用来测试多条件模糊查询博客信息，并返回一个自定义的实体对象. -->
+    <!-- 注意：要返回自定义的 实体Bean，需要写 resultType 的值为对应的实体全路径名，
+         且查询的每一个结果列都必须 'AS' 为与实体类属性相同的别名. -->
+    <fenix id="queryBlogDtos" resultType="com.blinkfox.fenix.example.dto.BlogDto">
+        SELECT
+            b.id AS blogId,
+            b.userId AS userId,
+            b.title AS title,
+            b.author AS author
+        FROM
+            Blog AS b
+        WHERE
+        <in field="b.id" value="ids" match="ids != empty"/>
+        <andLike field="b.title" value="title" match="title != empty"/>
+    </fenix>
+
 </fenixs>

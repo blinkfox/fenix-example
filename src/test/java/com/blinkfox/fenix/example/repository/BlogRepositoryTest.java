@@ -1,7 +1,7 @@
 package com.blinkfox.fenix.example.repository;
 
+import com.blinkfox.fenix.example.dto.BlogDto;
 import com.blinkfox.fenix.example.entity.Blog;
-
 import com.blinkfox.fenix.jpa.QueryFenix;
 
 import java.time.LocalDateTime;
@@ -35,7 +35,7 @@ public class BlogRepositoryTest {
     private BlogRepository blogRepository;
 
     /**
-     * 测试使用 {@link com.blinkfox.fenix.jpa.QueryFenix} 注解根据任意参数多条件模糊分页查询博客信息.
+     * 测试使用 {@link QueryFenix} 注解根据任意参数多条件模糊分页查询博客信息.
      */
     @Test
     public void queryMyBlogs() {
@@ -80,6 +80,20 @@ public class BlogRepositoryTest {
         // 查询并断言查询结果的正确性.
         List<Blog> blogs = blogRepository.queryBlogsWithJava(blog, startTime, endTime, ids);
         Assert.assertEquals(3, blogs.size());
+    }
+
+    /**
+     * 测试使用 {@link QueryFenix} 注解来演示根据任意参数来多条件模糊查询博客信息，并返回一个自定义的实体对象.
+     *
+     * @since v1.1.0
+     */
+    @Test
+    public void queryBlogDtos() {
+        // 根据参数查询，并断言查询结果的正确性.
+        Page<BlogDto> blogPage = blogRepository.queryBlogDtos(Arrays.asList("1", "2", "3", "4"), "Spring",
+                PageRequest.of(0, 2, Sort.by(Sort.Order.desc("createTime"))));
+        Assert.assertEquals(3, blogPage.getTotalElements());
+        Assert.assertNotNull(blogPage.getContent().get(0).getTitle());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.blinkfox.fenix.example.repository;
 
+import com.blinkfox.fenix.example.dto.BlogDto;
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.provider.BlogSqlProvider;
 import com.blinkfox.fenix.jpa.QueryFenix;
@@ -13,7 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
- * BlogRepository.
+ * 博客信息查询仓库.
  *
  * @author blinkfox on 2019-08-16.
  */
@@ -52,5 +53,17 @@ public interface BlogRepository extends JpaRepository<Blog, String> {
     @QueryFenix(provider = BlogSqlProvider.class)
     List<Blog> queryBlogsWithJava(@Param("blog") Blog blog, @Param("startTime") Date startTime,
             @Param("endTime") Date endTime, @Param("blogIds") String[] blogIds);
+
+    /**
+     * 使用 {@link QueryFenix} 注解来演示根据任意参数来多条件模糊查询博客信息，并返回一个自定义的实体对象.
+     *
+     * @param ids 博客信息 ID 集合
+     * @param title 博客标题
+     * @param pageable JPA 分页排序参数
+     * @return 自定义的博客部分信息实体类
+     * @since v1.1.0
+     */
+    @QueryFenix
+    Page<BlogDto> queryBlogDtos(@Param("ids") List<String> ids, @Param("title") String title, Pageable pageable);
 
 }
