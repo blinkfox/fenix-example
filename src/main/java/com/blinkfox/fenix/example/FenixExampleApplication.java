@@ -1,5 +1,6 @@
 package com.blinkfox.fenix.example;
 
+import com.blinkfox.fenix.EnableFenix;
 import com.blinkfox.fenix.jpa.FenixJpaRepositoryFactoryBean;
 
 import org.springframework.boot.SpringApplication;
@@ -12,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  * @author blinkfox on 2019-08-16.
  */
-@EnableJpaRepositories(repositoryFactoryBeanClass = FenixJpaRepositoryFactoryBean.class)
+@EnableFenix
 @SpringBootApplication
 public class FenixExampleApplication {
 
