@@ -4,6 +4,7 @@ import com.blinkfox.fenix.example.dto.BlogDto;
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.provider.BlogSqlProvider;
 import com.blinkfox.fenix.jpa.QueryFenix;
+import com.blinkfox.fenix.specification.FenixJpaSpecificationExecutor;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.query.Param;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.data.repository.query.Param;
  *
  * @author blinkfox on 2019-08-16.
  */
-public interface BlogRepository extends JpaRepository<Blog, String>, JpaSpecificationExecutor<Blog> {
+public interface BlogRepository extends JpaRepository<Blog, String>, FenixJpaSpecificationExecutor<Blog> {
 
     /**
      * 使用 {@link QueryFenix} 注解来演示根据博客信息Bean(可以是其它Bean 或者 Map)来多条件模糊分页查询博客信息.

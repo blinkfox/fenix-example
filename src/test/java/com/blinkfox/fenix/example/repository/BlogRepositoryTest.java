@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 
+import com.blinkfox.fenix.specification.handler.bean.BetweenValue;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -103,7 +104,7 @@ public class BlogRepositoryTest {
      */
     @Test
     public void queryBlogsWithSpecifition() {
-        // 模拟构造查询的相关 map 型参数.
+        // 这一段代码是在模拟构造前台传递查询的相关 map 型参数，当然也可以使用其他 Java 对象，作为查询参数.
         Map<String, Object> params = new HashMap<>();
         params.put("ids", new String[]{"1", "2", "3", "4", "5", "6", "7", "8"});
         params.put("author", "ZhangSan");
@@ -114,21 +115,24 @@ public class BlogRepositoryTest {
 
         // 开始查询，并验证正确性.
         Object[] ids = (Object[]) params.get("ids");
-        List<Blog> blogs = blogRepository.findAll(FenixSpecification.of(builder ->
+        List<Blog> blogs = blogRepository.findAll(builder ->
                 builder.andIn("id", ids, ids != null && ids.length > 0)
                         .andLike("title", params.get("title"), params.get("title") != null)
                         .andLike("author", params.get("author"))
                         .andBetween("createTime", params.get("startTime"), params.get("endTime"))
-                .build()));
+                .build());
+
+        // 单元测试断言查询结果的正确性.
         Assert.assertEquals(3, blogs.size());
         blogs.forEach(blog -> Assert.assertTrue(blog.getAuthor().endsWith("ZhangSan")));
     }
 
     /**
-     * 测试使用 Fenix 中的  {@link FenixSpecification} 的链式 Java API 来动态查询博客信息.
+     * 测试使用 Fenix 中的  {@link FenixSpecification} 的 Java Bean 条件注解的方式来动态查询博客信息.
      */
     @Test
     public void queryBlogsWithAnnotaion() {
+        // 这一段代码是在模拟构造前台传递的或单独定义的 Java Bean 对象参数.
         Date startTime = Date.from(LocalDateTime.of(2019, Month.APRIL, 8, 0, 0, 0)
                 .atZone(ZoneId.systemDefault()).toInstant());
         Date endTime = Date.from(LocalDateTime.of(2019, Month.OCTOBER, 8, 0, 0, 0)
@@ -136,10 +140,10 @@ public class BlogRepositoryTest {
         BlogParam blogParam = new BlogParam()
                 .setIds(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8"))
                 .setAuthor("ZhangSan")
-                .setCreateTime(new Date[]{startTime, endTime});
+                .setCreateTime(BetweenValue.of(startTime, endTime));
 
         // 开始查询，并验证正确性.
-        List<Blog> blogs = blogRepository.findAll(FenixSpecification.ofBean(blogParam));
+        List<Blog> blogs = blogRepository.findAllOfBean(blogParam);
         Assert.assertEquals(3, blogs.size());
         blogs.forEach(blog -> Assert.assertTrue(blog.getAuthor().endsWith("ZhangSan")));
     }
