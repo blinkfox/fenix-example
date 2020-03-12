@@ -5,7 +5,7 @@ import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.vo.BlogParam;
 import com.blinkfox.fenix.jpa.QueryFenix;
 import com.blinkfox.fenix.specification.FenixSpecification;
-
+import com.blinkfox.fenix.specification.handler.bean.BetweenValue;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
-
-import com.blinkfox.fenix.specification.handler.bean.BetweenValue;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
