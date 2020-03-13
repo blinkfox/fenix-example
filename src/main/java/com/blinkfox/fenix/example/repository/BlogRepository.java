@@ -5,10 +5,8 @@ import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.provider.BlogSqlProvider;
 import com.blinkfox.fenix.jpa.QueryFenix;
 import com.blinkfox.fenix.specification.FenixJpaSpecificationExecutor;
-
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

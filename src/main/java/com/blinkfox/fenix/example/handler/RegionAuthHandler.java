@@ -7,9 +7,7 @@ import com.blinkfox.fenix.consts.SymbolConst;
 import com.blinkfox.fenix.core.FenixHandler;
 import com.blinkfox.fenix.helper.ParseHelper;
 import com.blinkfox.fenix.helper.XmlNodeHelper;
-
 import java.util.Map;
-
 import org.dom4j.Node;
 
 /**

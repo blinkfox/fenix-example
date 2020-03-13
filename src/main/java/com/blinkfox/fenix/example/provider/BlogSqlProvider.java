@@ -5,9 +5,7 @@ import com.blinkfox.fenix.core.Fenix;
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.helper.CollectionHelper;
 import com.blinkfox.fenix.helper.StringHelper;
-
 import java.util.Date;
-
 import org.springframework.data.repository.query.Param;
 
 /**

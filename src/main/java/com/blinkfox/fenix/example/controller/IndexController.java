@@ -2,12 +2,10 @@ package com.blinkfox.fenix.example.controller;
 
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.repository.BlogRepository;
-
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

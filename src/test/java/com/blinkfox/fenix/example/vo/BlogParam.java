@@ -4,10 +4,8 @@ import com.blinkfox.fenix.specification.annotation.Between;
 import com.blinkfox.fenix.specification.annotation.In;
 import com.blinkfox.fenix.specification.annotation.Like;
 import com.blinkfox.fenix.specification.handler.bean.BetweenValue;
-
 import java.util.Date;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
