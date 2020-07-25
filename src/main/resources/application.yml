@@ -13,8 +13,10 @@ spring:
     hibernate:
       ddl-auto: update
 
+# 日志级别
 logging:
-  file: logs/fenix-example.log
+  file:
+    name: logs/fenix-example.log
   level:
     root: info
 
