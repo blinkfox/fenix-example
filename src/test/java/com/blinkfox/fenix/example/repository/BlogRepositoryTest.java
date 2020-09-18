@@ -15,22 +15,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * BlogRepository 的单元测试类.
  *
  * @author blinkfox on 2019-08-16.
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class BlogRepositoryTest {
 
@@ -49,8 +46,8 @@ public class BlogRepositoryTest {
 
         // 查询并断言查询结果的正确性.
         Page<Blog> blogs = blogRepository.queryMyBlogs(ids, blog, pageable);
-        Assert.assertEquals(4, blogs.getTotalElements());
-        Assert.assertEquals(3, blogs.getContent().size());
+        Assertions.assertEquals(4, blogs.getTotalElements());
+        Assertions.assertEquals(3, blogs.getContent().size());
     }
 
     /**
@@ -62,7 +59,7 @@ public class BlogRepositoryTest {
         List<String> ids = Arrays.asList("1", "2", "3", "4", "5", "6");
         List<Blog> blogs = blogRepository.queryBlogsByTemplate(ids,
                 new Blog().setAuthor("ZhangSan").setUpdateTime(new Date()));
-        Assert.assertEquals(4, blogs.size());
+        Assertions.assertEquals(4, blogs.size());
     }
 
     /**
@@ -80,7 +77,7 @@ public class BlogRepositoryTest {
 
         // 查询并断言查询结果的正确性.
         List<Blog> blogs = blogRepository.queryBlogsWithJava(blog, startTime, endTime, ids);
-        Assert.assertEquals(3, blogs.size());
+        Assertions.assertEquals(3, blogs.size());
     }
 
     /**
@@ -93,8 +90,8 @@ public class BlogRepositoryTest {
         // 根据参数查询，并断言查询结果的正确性.
         Page<BlogDto> blogPage = blogRepository.queryBlogDtos(Arrays.asList("1", "2", "3", "4"), "Spring",
                 PageRequest.of(0, 2, Sort.by(Sort.Order.desc("createTime"))));
-        Assert.assertEquals(3, blogPage.getTotalElements());
-        Assert.assertNotNull(blogPage.getContent().get(0).getTitle());
+        Assertions.assertEquals(3, blogPage.getTotalElements());
+        Assertions.assertNotNull(blogPage.getContent().get(0).getTitle());
     }
 
     /**
@@ -121,8 +118,8 @@ public class BlogRepositoryTest {
                 .build());
 
         // 单元测试断言查询结果的正确性.
-        Assert.assertEquals(3, blogs.size());
-        blogs.forEach(blog -> Assert.assertTrue(blog.getAuthor().endsWith("ZhangSan")));
+        Assertions.assertEquals(3, blogs.size());
+        blogs.forEach(blog -> Assertions.assertTrue(blog.getAuthor().endsWith("ZhangSan")));
     }
 
     /**
@@ -142,8 +139,8 @@ public class BlogRepositoryTest {
 
         // 开始查询，并验证正确性.
         List<Blog> blogs = blogRepository.findAllOfBean(blogParam);
-        Assert.assertEquals(3, blogs.size());
-        blogs.forEach(blog -> Assert.assertTrue(blog.getAuthor().endsWith("ZhangSan")));
+        Assertions.assertEquals(3, blogs.size());
+        blogs.forEach(blog -> Assertions.assertTrue(blog.getAuthor().endsWith("ZhangSan")));
     }
 
 }
