@@ -1,7 +1,7 @@
 # PostgreSQL 数据库的配置.
 spring:
   datasource:
-    url: jdbc:postgresql://172.25.2.9:6543/db_tcs
+    url: jdbc:postgresql://172.125.12.19:6543/db_tcs
     username: sa
     password: 123456
     driver-class-name: org.postgresql.Driver
@@ -12,3 +12,10 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 500
+          batch_versioned_data: true
+          order_inserts: true
+          order_updates: true

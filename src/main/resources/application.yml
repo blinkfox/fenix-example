@@ -1,7 +1,7 @@
 # 内存数据库和 JPA 的配置.
 spring:
-#  profiles:
-#    active: pg
+  profiles:
+    active: pg
   datasource:
     url: jdbc:hsqldb:mem:dbtest
     username: test
