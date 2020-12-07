@@ -146,6 +146,19 @@ public class BookService {
     }
 
     /**
+     * 使用 deleteByIds 方法来批量新增或更新图书信息.
+     *
+     * @param ids ID 集合
+     */
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void deleteBatchByIdsWithRollback(List<String> ids, boolean isRollback) {
+        this.bookRepository.deleteBatchByIds(ids);
+        if (isRollback) {
+            throw new RuntimeException("这是我用来测试事务回滚而抛出的异常.");
+        }
+    }
+
+    /**
      * 构建指定条数的图书信息集合.
      *
      * @param count 条数

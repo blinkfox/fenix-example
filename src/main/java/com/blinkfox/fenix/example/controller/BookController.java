@@ -1,7 +1,9 @@
 package com.blinkfox.fenix.example.controller;
 
+import com.blinkfox.fenix.consts.Const;
 import com.blinkfox.fenix.example.entity.Book;
 import com.blinkfox.fenix.example.service.BookService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -83,6 +85,33 @@ public class BookController {
             @PathVariable("count") int count,
             @RequestParam(name = "isRoll", required = false, defaultValue = "true") Boolean isRoll) {
         bookService.saveBatchWithRollback(count, isRoll);
+        return ResponseEntity.ok("执行完毕.");
+    }
+
+    /**
+     * 使用 saveBatchBooksWithRollback 新增保存指定数量的图书信息.
+     *
+     * @param isRoll 是否回滚
+     * @return hello
+     */
+    @GetMapping("/delete-batch/roll")
+    public ResponseEntity<String> saveAndDeleteBatchBooksWithRollback(
+            @RequestParam(name = "isRoll", required = false, defaultValue = "true") Boolean isRoll) {
+        List<Book> books = bookService.buildBooks(5);
+        bookService.saveOrUpdateBatch(books, Const.DEFAULT_BATCH_SIZE);
+        log.info("保存数据成功.");
+
+        // 构造需要删除的两条 ID.
+        List<String> ids = new ArrayList<>();
+        for (int i = 0; i < 2; ++i) {
+            ids.add(books.get(i).getId());
+        }
+
+        try {
+            bookService.deleteBatchByIdsWithRollback(ids, isRoll);
+        } catch (Exception e) {
+            log.error("删除数据时发生了我们指定的异常.", e);
+        }
         return ResponseEntity.ok("执行完毕.");
     }
 
