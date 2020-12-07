@@ -2,10 +2,12 @@ package com.blinkfox.fenix.example.controller;
 
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.repository.BlogRepository;
+import com.blinkfox.fenix.id.IdWorker;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author blinkfox on 2019-08-31.
  */
+@Slf4j
 @RestController
 @RequestMapping
 public class IndexController {
+
+    private static final IdWorker idWorker = new IdWorker();
 
     @Resource
     private BlogRepository blogRepository;
