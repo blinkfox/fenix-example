@@ -163,6 +163,31 @@ public class BookController {
     }
 
     /**
+     * 使用 updateBatchWithRollback 来更新保存指定数量的图书信息.
+     *
+     * @param isRoll 是否回滚
+     * @return hello
+     */
+    @GetMapping("/update-batch/roll")
+    public ResponseEntity<String> updateBatchWithRollback(
+            @RequestParam(name = "isRoll", required = false, defaultValue = "true") Boolean isRoll) {
+        // 先新增保存并统计耗时.
+        List<Book> books = bookService.buildBooks(10);
+        long start = System.currentTimeMillis();
+        bookService.saveBatch(books, 3);
+        String result = "使用【saveBatch】方法新增保存完成，耗时:【" + (System.currentTimeMillis() - start) + "】ms.";
+        log.info(result);
+
+        // 再更新并统计耗时.
+        List<Book> updateBooks = bookService.buildUpdateBooks(books);
+        long start2 = System.currentTimeMillis();
+        bookService.updateBatchWithRollback(updateBooks, isRoll);
+        String result2 = "使用【updateBatch】方法更新完成，耗时:【" + (System.currentTimeMillis() - start2) + "】ms.";
+        log.info(result2);
+        return ResponseEntity.ok(result2);
+    }
+
+    /**
      * 使用 saveOrUpdateBatch 来新增或更新保存指定数量的图书信息.
      *
      * @param count 数量

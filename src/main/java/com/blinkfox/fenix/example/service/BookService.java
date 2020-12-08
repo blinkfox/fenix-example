@@ -82,6 +82,20 @@ public class BookService {
     }
 
     /**
+     * 使用 deleteByIds 方法来批量新增或更新图书信息.
+     *
+     * @param books ID 集合
+     * @param isRollback 是否回滚
+     */
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void updateBatchWithRollback(List<Book> books, boolean isRollback) {
+        this.bookRepository.updateBatch(books);
+        if (isRollback) {
+            throw new RuntimeException("这是我用于测试 updateBatch 方法的手动抛出的异常.");
+        }
+    }
+
+    /**
      * 使用 saveOrUpdateAllByNotNullProperties 方法来批量新增或更新图书信息.
      *
      * @param books 图书集合
