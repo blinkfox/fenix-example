@@ -98,7 +98,7 @@ public class BookController {
     public ResponseEntity<String> saveAndDeleteBatchBooksWithRollback(
             @RequestParam(name = "isRoll", required = false, defaultValue = "true") Boolean isRoll) {
         List<Book> books = bookService.buildBooks(5);
-        bookService.saveOrUpdateBatch(books, Const.DEFAULT_BATCH_SIZE);
+        bookService.saveBatch(books, Const.DEFAULT_BATCH_SIZE);
         log.info("保存数据成功.");
 
         // 构造需要删除的两条 ID.
@@ -169,33 +169,6 @@ public class BookController {
      * @param batchSize 批量大小
      * @return hello
      */
-    @GetMapping("/save-or-update-batch/{count}")
-    public ResponseEntity<String> saveOrUpdateBatchBooks(
-            @PathVariable("count") int count,
-            @RequestParam(name = "batchSize", required = false) Integer batchSize) {
-        // 先新增保存并统计耗时.
-        List<Book> books = bookService.buildBooks(count);
-        long start = System.currentTimeMillis();
-        bookService.saveOrUpdateBatch(books, batchSize);
-        String result = "使用【saveOrUpdateBatch】方法新增保存完成，耗时:【" + (System.currentTimeMillis() - start) + "】ms.";
-        log.info(result);
-
-        // 再更新保存并统计耗时.
-        List<Book> updateBooks = bookService.buildUpdateBooks(books);
-        long start2 = System.currentTimeMillis();
-        bookService.saveOrUpdateBatch(updateBooks, batchSize);
-        String result2 = "使用【saveOrUpdateBatch】方法更新保存完成，耗时:【" + (System.currentTimeMillis() - start2) + "】ms.";
-        log.info(result2);
-        return ResponseEntity.ok(result2);
-    }
-
-    /**
-     * 使用 saveOrUpdateBatch 来新增或更新保存指定数量的图书信息.
-     *
-     * @param count 数量
-     * @param batchSize 批量大小
-     * @return hello
-     */
     @GetMapping("/save-or-update-all-notnull/{count}")
     public ResponseEntity<String> saveOrUpdateAllByNotNullProperties(
             @PathVariable("count") int count,
@@ -213,35 +186,6 @@ public class BookController {
         long start2 = System.currentTimeMillis();
         bookService.saveOrUpdateAllByNotNullProperties(updateBooks);
         String result2 = "使用【saveOrUpdateAllByNotNullProperties】方法更新保存完成，"
-                + "耗时:【" + (System.currentTimeMillis() - start2) + "】ms.";
-        log.info(result2);
-        return ResponseEntity.ok(result2);
-    }
-
-    /**
-     * 使用 saveOrUpdateBatch 来新增或更新保存指定数量的图书信息.
-     *
-     * @param count 数量
-     * @param batchSize 批量大小
-     * @return hello
-     */
-    @GetMapping("/save-or-update-batch-notnull/{count}")
-    public ResponseEntity<String> saveOrUpdateBatchByNotNullProperties(
-            @PathVariable("count") int count,
-            @RequestParam(name = "batchSize", required = false) Integer batchSize) {
-        // 先新增保存并统计耗时.
-        List<Book> books = bookService.buildBooks(count);
-        long start = System.currentTimeMillis();
-        bookService.saveOrUpdateBatchByNotNullProperties(books, batchSize);
-        String result = "使用【saveOrUpdateBatchByNotNullProperties】方法新增保存完成，"
-                + "耗时:【" + (System.currentTimeMillis() - start) + "】ms.";
-        log.info(result);
-
-        // 再更新保存并统计耗时.
-        List<Book> updateBooks = bookService.buildUpdateNotNullProperties(books);
-        long start2 = System.currentTimeMillis();
-        bookService.saveOrUpdateBatchByNotNullProperties(updateBooks, batchSize);
-        String result2 = "使用【saveOrUpdateBatchByNotNullProperties】方法更新保存完成，"
                 + "耗时:【" + (System.currentTimeMillis() - start2) + "】ms.";
         log.info(result2);
         return ResponseEntity.ok(result2);

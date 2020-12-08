@@ -82,21 +82,6 @@ public class BookService {
     }
 
     /**
-     * 使用 saveOrUpdateBatch 方法来批量新增或更新图书信息.
-     *
-     * @param books 图书集合
-     * @param batchSize 批量保存大小.
-     */
-    @Transactional(rollbackFor = RuntimeException.class)
-    public void saveOrUpdateBatch(List<Book> books, Integer batchSize) {
-        if (batchSize == null || batchSize <= 0) {
-            this.bookRepository.saveOrUpdateBatch(books);
-        } else {
-            this.bookRepository.saveOrUpdateBatch(books, batchSize);
-        }
-    }
-
-    /**
      * 使用 saveOrUpdateAllByNotNullProperties 方法来批量新增或更新图书信息.
      *
      * @param books 图书集合
@@ -104,21 +89,6 @@ public class BookService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void saveOrUpdateAllByNotNullProperties(List<Book> books) {
         this.bookRepository.saveOrUpdateAllByNotNullProperties(books);
-    }
-
-    /**
-     * 使用 saveOrUpdateBatchByNotNullProperties 方法来批量新增或更新图书信息.
-     *
-     * @param books 图书集合
-     * @param batchSize 批量保存大小.
-     */
-    @Transactional(rollbackFor = RuntimeException.class)
-    public void saveOrUpdateBatchByNotNullProperties(List<Book> books, Integer batchSize) {
-        if (batchSize == null || batchSize <= 0) {
-            this.bookRepository.saveOrUpdateBatchByNotNullProperties(books);
-        } else {
-            this.bookRepository.saveOrUpdateBatchByNotNullProperties(books, batchSize);
-        }
     }
 
     /**
