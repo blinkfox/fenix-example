@@ -15,8 +15,8 @@ spring:
     # 以下配置用于提高批量操作的相关性能.
     properties:
       hibernate:
+        order_inserts: true
+        order_updates: true
         jdbc:
           batch_size: 500
           batch_versioned_data: true
-          order_inserts: true
-          order_updates: true

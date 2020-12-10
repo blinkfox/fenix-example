@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author blinkfox on 2020-12-07.
  * @since v2.4.0
  */
+@Slf4j
 @Service
 public class BookService {
 
     private static final IdWorker idWorker = new IdWorker();
+
+    private ThreadPoolExecutor executor = new ThreadPoolExecutor(4, 8, 60, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<>(120), r -> new Thread(r, "fenix-test-thread"));
 
     @Resource
     private BookRepository bookRepository;
@@ -140,6 +149,40 @@ public class BookService {
         if (isRollback) {
             throw new RuntimeException("这是我用来测试事务回滚而抛出的异常.");
         }
+    }
+
+    /**
+     * 异步获取图书信息.
+     *
+     * @param n 数字
+     */
+    public void asyncSaveBooks(int n) {
+        CountDownLatch latch = new CountDownLatch(n);
+
+        final long start0 = System.currentTimeMillis();
+        for (int i = 0; i < n; ++i) {
+            executor.execute(() -> {
+                try {
+                    long start = System.currentTimeMillis();
+                    List<Book> books = this.buildBooks(10000);
+                    bookRepository.saveBatch(books);
+                    List<Book> updateBooks = this.buildUpdateBooks(books);
+                    this.bookRepository.updateBatch(updateBooks);
+                    log.info("单次新增更新耗时:【{} ms】.", System.currentTimeMillis() - start);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            log.error("发生了中断异常.");
+            Thread.currentThread().interrupt();
+        }
+        log.info("总查询耗时:【{} ms】.", System.currentTimeMillis() - start0);
+        log.info("所有线程执行完毕.");
     }
 
     /**

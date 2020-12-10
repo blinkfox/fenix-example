@@ -270,4 +270,17 @@ public class BookController {
         return ResponseEntity.ok(result2);
     }
 
+    /**
+     * 使用 asyncGetBooks 来异步获取图书信息.
+     *
+     * @param count 数量
+     * @return hello
+     */
+    @GetMapping("/async/{count}")
+    public ResponseEntity<String> asyncSaveBooks(
+            @PathVariable("count") int count) {
+        this.bookService.asyncSaveBooks(count);
+        return ResponseEntity.ok("执行完成.");
+    }
+
 }
