@@ -128,6 +128,7 @@ public class BookService {
      * 使用 deleteByIds 方法来批量新增或更新图书信息.
      *
      * @param ids ID 集合
+     * @param batchSize 批量大小
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public void deleteBatchByIds(List<String> ids, Integer batchSize) {
@@ -142,6 +143,7 @@ public class BookService {
      * 使用 deleteByIds 方法来批量新增或更新图书信息.
      *
      * @param ids ID 集合
+     * @param isRollback 是否回滚
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public void deleteBatchByIdsWithRollback(List<String> ids, boolean isRollback) {
