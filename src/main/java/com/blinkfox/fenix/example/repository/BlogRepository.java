@@ -1,6 +1,6 @@
 package com.blinkfox.fenix.example.repository;
 
-import com.blinkfox.fenix.example.dto.BlogDto;
+import com.blinkfox.fenix.example.dto.BlogVo;
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.provider.BlogSqlProvider;
 import com.blinkfox.fenix.jpa.QueryFenix;
@@ -63,6 +63,19 @@ public interface BlogRepository extends JpaRepository<Blog, String>, FenixJpaSpe
      * @since v1.1.0
      */
     @QueryFenix
-    Page<BlogDto> queryBlogDtos(@Param("ids") List<String> ids, @Param("title") String title, Pageable pageable);
+    Page<BlogVo> queryBlogVos(@Param("ids") List<String> ids, @Param("title") String title, Pageable pageable);
+
+    /**
+     * 2.7.0 及之后的版本的 resultType 新写法，建议将 resultType 写到 {@link QueryFenix#resultType()} 的注解属性中，
+     * 能更好的利用上 Java 静态编译检查功能，利于代码重构和 IDE 的跳转查看等.
+     *
+     * @param ids 博客信息 ID 集合
+     * @param title 博客标题
+     * @param pageable JPA 分页排序参数
+     * @return 自定义的博客部分信息实体类
+     * @since v1.1.0
+     */
+    @QueryFenix(resultType = BlogVo.class)
+    Page<BlogVo> queryNewBlogVos(@Param("ids") List<String> ids, @Param("title") String title, Pageable pageable);
 
 }

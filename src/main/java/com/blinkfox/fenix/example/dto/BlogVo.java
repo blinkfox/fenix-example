@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BlogDto {
+public class BlogVo {
 
     /**
      * 博客 ID.

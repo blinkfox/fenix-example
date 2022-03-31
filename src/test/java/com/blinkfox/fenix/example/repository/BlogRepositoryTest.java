@@ -1,6 +1,6 @@
 package com.blinkfox.fenix.example.repository;
 
-import com.blinkfox.fenix.example.dto.BlogDto;
+import com.blinkfox.fenix.example.dto.BlogVo;
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.vo.BlogParam;
 import com.blinkfox.fenix.jpa.QueryFenix;
@@ -88,7 +88,22 @@ public class BlogRepositoryTest {
     @Test
     public void queryBlogDtos() {
         // 根据参数查询，并断言查询结果的正确性.
-        Page<BlogDto> blogPage = blogRepository.queryBlogDtos(Arrays.asList("1", "2", "3", "4"), "Spring",
+        Page<BlogVo> blogPage = blogRepository.queryBlogVos(Arrays.asList("1", "2", "3", "4"), "Spring",
+                PageRequest.of(0, 2, Sort.by(Sort.Order.desc("createTime"))));
+        Assertions.assertEquals(3, blogPage.getTotalElements());
+        Assertions.assertNotNull(blogPage.getContent().get(0).getTitle());
+    }
+
+    /**
+     * 测试 2.7.0 及之后的版本的 resultType 新写法，建议将 resultType 写到 {@link QueryFenix#resultType()} 的注解属性中，
+     *  能更好的利用上 Java 静态编译检查功能，利于代码重构和 IDE 的跳转查看等.
+     *
+     * @since v2.7.0
+     */
+    @Test
+    public void queryNewBlogVos() {
+        // 根据参数查询，并断言查询结果的正确性.
+        Page<BlogVo> blogPage = blogRepository.queryNewBlogVos(Arrays.asList("1", "2", "3", "4"), "Spring",
                 PageRequest.of(0, 2, Sort.by(Sort.Order.desc("createTime"))));
         Assertions.assertEquals(3, blogPage.getTotalElements());
         Assertions.assertNotNull(blogPage.getContent().get(0).getTitle());
