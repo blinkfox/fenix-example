@@ -1,6 +1,6 @@
 package com.blinkfox.fenix.example.repository;
 
-import com.blinkfox.fenix.example.dto.BlogVo;
+import com.blinkfox.fenix.example.vo.BlogVo;
 import com.blinkfox.fenix.example.entity.Blog;
 import com.blinkfox.fenix.example.provider.BlogSqlProvider;
 import com.blinkfox.fenix.jpa.QueryFenix;

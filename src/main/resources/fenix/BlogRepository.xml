@@ -42,7 +42,7 @@
 
     <!-- 用来测试多条件模糊查询博客信息，并返回一个自定义的实体对象. -->
     <!-- 注意：新版本已经不建议将 resultType 写到 XML 中了，建议写到 @QueryFenix 注解中，不过之前在 XML 中的写法仍然有效。 -->
-    <fenix id="queryBlogVos" resultType="com.blinkfox.fenix.example.dto.BlogVo">
+    <fenix id="queryBlogVos" resultType="com.blinkfox.fenix.example.vo.BlogVo">
         SELECT
             b.id AS blogId,
             b.userId AS userId,

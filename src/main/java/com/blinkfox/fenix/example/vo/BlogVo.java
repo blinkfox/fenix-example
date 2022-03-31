@@ -1,4 +1,4 @@
-package com.blinkfox.fenix.example.dto;
+package com.blinkfox.fenix.example.vo;
 
 import lombok.Getter;
 import lombok.Setter;

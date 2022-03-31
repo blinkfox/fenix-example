@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 这是用来操作博客信息的 Fenix XML 文件，请填写 namespace 命名空间. -->
+<fenixs namespace="com.blinkfox.fenix.example.repository.PersonRepository">
+
+    <!-- 多条件模糊分页查询人员信息，并返回自定义 VO 对象信息. -->
+    <fenix id="queryPersonVos">
+        select
+            c_id,
+            c_account,
+            c_nick_name,
+            n_status,
+            dt_last_update_time
+        from
+            test.t_person
+        <trimWhere>
+            <andEqual field="c_id" value="search.id" match="search.id != empty"/>
+            <andLike field="c_nick_name" value="search.nickName" match="search.nickName != empty"/>
+            <andIn field="n_status" value="search.statusList" match="search.statusList != empty"/>
+            <andBetween field="n_age" start="search.?age.getStart()" startName="age_start"
+                        end="search.?age.getEnd()" endName="age_end"
+                        match="(search.?age.getStart() != null) || (search.?age.getEnd() != null)"/>
+        </trimWhere>
+    </fenix>
+
+    <!-- 多条件模糊分页查询人员信息，并返回自定义 VO 对象信息. -->
+    <fenix id="queryPersonVos2">
+        <import fenixId="queryPersonVos"/>
+    </fenix>
+
+</fenixs>
