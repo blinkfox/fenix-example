@@ -4,16 +4,18 @@ spring:
 #    active: pg
   datasource:
     url: jdbc:hsqldb:mem:dbtest
-    username: test
+    username: root
     password: 123456
     driver-class-name: org.hsqldb.jdbcDriver
-    platform: hsqldb
-    schema: classpath:db/schema.sql
-    data: classpath:db/data.sql
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
+  sql:
+    init:
+      platform: hsqldb
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
 
 # 日志级别
 logging:
@@ -32,3 +34,4 @@ fenix:
     - myfenix
   handler-locations: com.blinkfox.fenix.example.handler
   predicate-handlers:
+  underscore-transformer-prefix:
