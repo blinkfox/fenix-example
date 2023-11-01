@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +30,6 @@ import org.springframework.data.domain.Sort;
  * @since v2.7.0
  */
 @Slf4j
-@SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PersonTest {
 

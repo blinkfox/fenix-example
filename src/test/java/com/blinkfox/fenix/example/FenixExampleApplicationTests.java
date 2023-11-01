@@ -2,14 +2,12 @@ package com.blinkfox.fenix.example;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * 根启动类的单测类.
  *
  * @author blinkfox on 2019-09-16.
  */
-@SpringBootTest
 class FenixExampleApplicationTests {
 
     /**
