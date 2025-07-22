@@ -18,10 +18,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.TestPropertySource;
 
 /**
  * {@link Person} 的单元测试类.
@@ -31,6 +33,8 @@ import org.springframework.data.domain.Sort;
  */
 @Slf4j
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
+@TestPropertySource(locations = "/application.yml")
 class PersonTest {
 
     private static final int COUNT = 9;
@@ -66,7 +70,7 @@ class PersonTest {
         // 保存数据，并断言是否插入成功.
         PersonRepository personRepository = new Person().getRepository();
         personRepository.saveAll(personList);
-        Assertions.assertEquals(personRepository.count(), COUNT);
+        Assertions.assertEquals(COUNT, personRepository.count());
 
         // 构造一些初始查询条件.
         search = new PersonSearch()
