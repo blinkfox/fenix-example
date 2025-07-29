@@ -1,7 +1,5 @@
 package com.blinkfox.fenix.example.entity.idgenerate;
 
-import com.blinkfox.fenix.id.Snowflake36RadixId;
-import com.blinkfox.fenix.id.Snowflake62RadixId;
 import com.blinkfox.fenix.id.SnowflakeId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
