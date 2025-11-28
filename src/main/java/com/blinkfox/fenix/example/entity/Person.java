@@ -3,9 +3,9 @@ package com.blinkfox.fenix.example.entity;
 import com.blinkfox.fenix.ar.repo.JpaModel;
 import com.blinkfox.fenix.ar.spec.FenixSpecModel;
 import com.blinkfox.fenix.example.repository.PersonRepository;
+import com.blinkfox.fenix.id.Snowflake36RadixId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -14,7 +14,6 @@ import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 用户信息实体类.
@@ -34,8 +33,7 @@ public class Person implements JpaModel<Person, String, PersonRepository>, Fenix
      */
     @Id
     @Column(name = "c_id")
-    @GeneratedValue(generator = "snowflake36RadixId")
-    @GenericGenerator(name = "snowflake36RadixId", strategy = "com.blinkfox.fenix.id.Snowflake36RadixIdGenerator")
+    @Snowflake36RadixId
     private String id;
 
     /**
