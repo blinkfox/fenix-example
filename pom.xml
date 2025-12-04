@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version>
+        <version>4.0.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>com.blinkfox</groupId>
     <artifactId>fenix-example</artifactId>
-    <version>3.1.0</version>
+    <version>4.0.0</version>
     <name>fenix-example</name>
     <description>这是 Spring Data JPA 的 Fenix 扩展示例项目</description>
 
@@ -32,12 +32,7 @@
         <dependency>
             <groupId>com.blinkfox</groupId>
             <artifactId>fenix-spring-boot-starter</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
-            <scope>runtime</scope>  <!-- runtime 作用域，只在运行时用 -->
+            <version>4.0.0</version>
         </dependency>
 
         <dependency>
@@ -56,7 +51,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.38</version>
             <optional>true</optional>
         </dependency>
         <dependency>
